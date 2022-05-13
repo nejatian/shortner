@@ -1,0 +1,1 @@
+CREATE TABLE routing (shorted_link char(4) PRIMARY KEY, original_link text);
