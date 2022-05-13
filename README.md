@@ -1,4 +1,4 @@
-# URL Shortner app
+# URL Shortner app ✂️
 
 ## ▶️ Getting Started 
 
