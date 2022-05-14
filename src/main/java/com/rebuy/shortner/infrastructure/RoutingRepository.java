@@ -1,0 +1,9 @@
+package com.rebuy.shortner.infrastructure;
+
+import com.rebuy.shortner.domain.Routing;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RoutingRepository extends JpaRepository<Routing, String> {
+}
