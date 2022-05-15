@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface RoutingRepository extends JpaRepository<Routing, String> {
-    @Override
-    Optional<Routing> findById(String id);
+    Optional<Routing> findRoutingByOriginalUrl(String url);
 }

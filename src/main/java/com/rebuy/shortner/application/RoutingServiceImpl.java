@@ -16,7 +16,26 @@ public class RoutingServiceImpl implements RoutingService{
 
     @Override
     public String generateUrl(String url) {
-        return null;
+        String shortUrl = "";
+        Optional<Routing> existingURL =routingRepository.findRoutingByOriginalUrl(url);
+        if(existingURL.isPresent()){
+            shortUrl =  existingURL.get().getShortUrl();
+        }
+        else {
+            //todo: generate
+            Routing routing = new Routing();
+            routing.setShortUrl(shortUrl);
+            routing.setOriginalUrl(url);
+            //todo: retry to save
+            try{
+                routingRepository.save(routing);
+            }catch (IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+        shortUrl = "localhost/" + shortUrl;
+        return shortUrl;
     }
 
     @Override
