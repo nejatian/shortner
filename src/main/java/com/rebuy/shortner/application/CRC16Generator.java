@@ -4,13 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CRC16Generator {
-    /**
-     * CRC16 lookup table
-     * <p>
-     * Since the polynomial is fixed (1 + x^2 + x^15 + x^16), to enhance
-     * the performance of the crc generation, we have pre-calculated the
-     * division for each byte value to avoid the unnecessary recalculations.
-     */
+
     private static final int[] lookupTable = {
             0x0000, 0xC0C1, 0xC181, 0x0140, 0xC301, 0x03C0, 0x0280, 0xC241,
             0xC601, 0x06C0, 0x0780, 0xC741, 0x0500, 0xC5C1, 0xC481, 0x0440,
@@ -46,12 +40,6 @@ public class CRC16Generator {
             0x8201, 0x42C0, 0x4380, 0x8341, 0x4100, 0x81C1, 0x8081, 0x4040,
     };
 
-    /**
-     * The Generation function
-     * <p>
-     * This function get the Url as an string and return the generated value
-     * in hexadecimal form.
-     */
     public String generateHashUrl(String url) {
 
         int genCrc = 0;
