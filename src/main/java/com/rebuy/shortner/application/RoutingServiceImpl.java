@@ -9,32 +9,27 @@ import java.util.Optional;
 @Service
 public class RoutingServiceImpl implements RoutingService{
     private final RoutingRepository routingRepository;
+    private final CRC16Generator crc16Generator;
 
-    public RoutingServiceImpl(RoutingRepository routingRepository) {
+    public RoutingServiceImpl(RoutingRepository routingRepository, CRC16Generator crc16Generator) {
         this.routingRepository = routingRepository;
+        this.crc16Generator = crc16Generator;
     }
 
     @Override
     public String generateUrl(String url) {
-        String shortUrl = "";
-        Optional<Routing> existingURL =routingRepository.findRoutingByOriginalUrl(url);
-        if(existingURL.isPresent()){
-            shortUrl =  existingURL.get().getShortUrl();
-        }
-        else {
-            //todo: generate
+            String shortUrl = crc16Generator.generateHashUrl(url);
             Routing routing = new Routing();
             routing.setShortUrl(shortUrl);
             routing.setOriginalUrl(url);
-            //todo: retry to save
+
             try{
                 routingRepository.save(routing);
             }catch (IllegalArgumentException e){
                 System.out.println(e.getMessage());
             }
-        }
 
-        shortUrl = "localhost/" + shortUrl;
+        shortUrl = "localhost:8080/" + shortUrl;
         return shortUrl;
     }
 

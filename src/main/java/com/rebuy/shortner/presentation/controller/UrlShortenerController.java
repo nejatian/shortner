@@ -35,6 +35,7 @@ public class UrlShortenerController {
     @PostMapping("/request")
     public String generateUrl(@ModelAttribute RequestModel request, Model model) {
         String shortUrl = routingService.generateUrl(request.getUrl());
+        request.setUrl(shortUrl);
         model.addAttribute("request", request);
         return "result";
     }
